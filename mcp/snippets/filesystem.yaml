@@ -1,0 +1,4 @@
+filesystem:
+  command: npx
+  args: ["-y", "@modelcontextprotocol/server-filesystem", "/home", "/tmp", "/workspace"]
+  timeout: 30

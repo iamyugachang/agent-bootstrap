@@ -1,0 +1,88 @@
+# Hermes Agent — recommended config for a productive agent setup
+# Copy to ~/.hermes/config.yaml and fill in your API keys.
+
+model:
+  default: claude-sonnet-4-6
+  provider: anthropic
+
+agent:
+  max_turns: 90
+  verbose: false
+  reasoning_effort: medium
+  tool_use_enforcement: auto
+
+terminal:
+  backend: local
+  persistent_shell: true
+  auto_source_bashrc: true
+  timeout: 180
+
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+
+# -- MCP Servers -----------------------------------------------------------
+# Uncomment and fill in keys for the servers you want.
+
+mcp_servers:
+
+  # GitHub — create repos, PRs, issues, code search
+  # Get a PAT at: https://github.com/settings/tokens
+  github:
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-github"]
+    env:
+      GITHUB_PERSONAL_ACCESS_TOKEN: "YOUR_GITHUB_PAT_HERE"
+    timeout: 60
+
+  # Filesystem — read/write files on your local machine
+  # Change the path list to what you want to expose to the agent.
+  # filesystem:
+  #   command: npx
+  #   args: ["-y", "@modelcontextprotocol/server-filesystem", "/home", "/tmp"]
+  #   timeout: 30
+
+  # Fetch — pull any URL as clean markdown (great for docs)
+  # fetch:
+  #   command: npx
+  #   args: ["-y", "@modelcontextprotocol/server-fetch"]
+  #   timeout: 60
+
+  # Brave Search — web search (free tier: 2000 req/month)
+  # Get a key at: https://api.search.brave.com/
+  # brave-search:
+  #   command: npx
+  #   args: ["-y", "@modelcontextprotocol/server-brave-search"]
+  #   env:
+  #     BRAVE_API_KEY: "YOUR_BRAVE_API_KEY_HERE"
+  #   timeout: 30
+
+  # Memory — persistent key-value store across agent sessions
+  # memory:
+  #   command: npx
+  #   args: ["-y", "@modelcontextprotocol/server-memory"]
+  #   timeout: 30
+
+  # Sequential Thinking — structured multi-step reasoning tool
+  # sequential-thinking:
+  #   command: npx
+  #   args: ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+  #   timeout: 30
+
+display:
+  compact: false
+  streaming: true
+  show_cost: false
+  final_response_markdown: strip
+  inline_diffs: true
+
+checkpoints:
+  enabled: true
+  max_snapshots: 50
+
+sessions:
+  auto_prune: false
+  retention_days: 90
+
+privacy:
+  redact_pii: false
